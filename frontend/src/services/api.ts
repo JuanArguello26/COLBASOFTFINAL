@@ -104,4 +104,12 @@ export const logsAPI = {
     api.get(`/logs/${entidad}/${entidad_id}`)
 };
 
+export const suppliersAPI = {
+  getAll: () => api.get('/suppliers'),
+  getById: (id: number) => api.get(`/suppliers/${id}`),
+  create: (data: any) => api.post('/suppliers', data),
+  update: (id: number, data: any) => api.put(`/suppliers/${id}`, data),
+  delete: (id: number) => api.delete(`/suppliers/${id}`)
+};
+
 export default api;

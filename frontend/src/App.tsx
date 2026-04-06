@@ -8,6 +8,7 @@ import { InventarioPage } from './pages/Inventario/InventarioPage';
 import { MovimientosPage } from './pages/Movimientos/MovimientosPage';
 import { TrazabilidadPage } from './pages/Trazabilidad/TrazabilidadPage';
 import { UsuariosPage } from './pages/Usuarios/UsuariosPage';
+import { ProveedoresPage } from './pages/Proveedores/ProveedoresPage';
 import { useState } from 'react';
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
@@ -36,6 +37,7 @@ function AppRoutes() {
       <Route path="/inventario" element={<ProtectedRoute><InventarioPage /></ProtectedRoute>} />
       <Route path="/movimientos" element={<ProtectedRoute><MovimientosPage /></ProtectedRoute>} />
       <Route path="/trazabilidad" element={<ProtectedRoute><TrazabilidadPage /></ProtectedRoute>} />
+      <Route path="/proveedores" element={<ProtectedRoute><ProveedoresPage /></ProtectedRoute>} />
       <Route path="/usuarios" element={<ProtectedRoute><UsuariosPage /></ProtectedRoute>} />
       <Route path="/" element={<Navigate to="/dashboard" replace />} />
       <Route path="*" element={<Navigate to="/dashboard" replace />} />

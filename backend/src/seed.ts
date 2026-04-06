@@ -4,6 +4,7 @@ import { WarehouseRepository } from './repositories/WarehouseRepository';
 import { ProductRepository } from './repositories/ProductRepository';
 import { MovementRepository } from './repositories/MovementRepository';
 import { AlertRepository } from './repositories/AlertRepository';
+import { SupplierRepository } from './repositories/SupplierRepository';
 
 async function seed() {
   console.log('🌱 Iniciando seed de datos...');
@@ -14,6 +15,7 @@ async function seed() {
   runExec('DELETE FROM alerts');
   runExec('DELETE FROM movements');
   runExec('DELETE FROM products');
+  runExec('DELETE FROM suppliers');
   runExec('DELETE FROM users');
   runExec('DELETE FROM warehouses');
   
@@ -143,6 +145,20 @@ async function seed() {
     tipo: 'stock_agotado',
     mensaje: '⚠️ STOCK AGOTADO: Overol Industrial'
   });
+
+  console.log('🏭 Creando proveedores del Eje Cafetero...');
+  
+  const suppliers = [
+    { nit: '900123456', nombre: 'Textiles del Eje S.A.S', contacto: 'Carlos Mendoza', telefono: '3123456789', email: 'carlos@textilesdeleje.com', direccion: 'Zona Industrial Pereira', ciudad: 'Pereira' },
+    { nit: '900234567', nombre: 'Denim Colombia', contacto: 'María González', telefono: '3201234567', email: 'maria@denimcolombia.com', direccion: 'Zona Franca Armenia', ciudad: 'Armenia' },
+    { nit: '900345678', nombre: 'Fibras del Café', contacto: 'Pedro López', telefono: '3159876543', email: 'pedro@fibrasdelcafe.com', direccion: 'Av. del Estadio', ciudad: 'Manizales' },
+    { nit: '900456789', nombre: 'TexCafé', contacto: 'Ana Rodríguez', telefono: '3105551234', email: 'ana@texcafe.com', direccion: 'Cartago', ciudad: 'Cartago' },
+    { nit: '900567890', nombre: 'Confección Café', contacto: 'Juan Pérez', telefono: '3112223344', email: 'juan@confeccioncafe.com', direccion: 'Calarcá', ciudad: 'Calarcá' }
+  ];
+
+  for (const s of suppliers) {
+    SupplierRepository.create(s);
+  }
   
   console.log('✅ Seed completado exitosamente!');
   console.log('');
@@ -152,6 +168,7 @@ async function seed() {
   console.log('');
   console.log('🏭 Almacenes: Pereira, Armenia, Manizales');
   console.log('📦 Productos: 15 (telas, insumos, prendas)');
+  console.log('🏭 Proveedores: 5');
 }
 
 seed();

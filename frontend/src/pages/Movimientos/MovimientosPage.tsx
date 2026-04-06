@@ -8,6 +8,7 @@ import { Table } from '../../components/common/Table';
 import { Modal } from '../../components/common/Modal';
 import { Badge } from '../../components/common/Badge';
 import { Layout } from '../../components/layout/Layout';
+import { exportToPDF, exportToExcel } from '../../utils/export';
 
 export function MovimientosPage() {
   const [movements, setMovements] = useState<Movement[]>([]);
@@ -72,6 +73,45 @@ export function MovimientosPage() {
     return product?.nombre || 'Desconocido';
   };
 
+  const movementColumns = [
+    { key: 'id', header: 'ID' },
+    { key: 'tipo', header: 'Tipo' },
+    { key: 'product_id', header: 'Producto' },
+    { key: 'cantidad', header: 'Cantidad' },
+    { key: 'stock_anterior', header: 'Stock Anterior' },
+    { key: 'stock_nuevo', header: 'Stock Nuevo' },
+    { key: 'motivo', header: 'Motivo' },
+    { key: 'created_at', header: 'Fecha' }
+  ];
+
+  const handleExportPDF = () => {
+    const data = movements.map(m => ({
+      id: m.id,
+      tipo: m.tipo,
+      producto: getProductName(m.product_id),
+      cantidad: m.cantidad,
+      stock_anterior: m.stock_anterior,
+      stock_nuevo: m.stock_nuevo,
+      motivo: m.motivo || '',
+      fecha: new Date(m.created_at).toLocaleString('es-CO')
+    }));
+    exportToPDF(data, movementColumns, 'movimientos', 'Historial de Movimientos');
+  };
+
+  const handleExportExcel = () => {
+    const data = movements.map(m => ({
+      id: m.id,
+      tipo: m.tipo,
+      producto: getProductName(m.product_id),
+      cantidad: m.cantidad,
+      stock_anterior: m.stock_anterior,
+      stock_nuevo: m.stock_nuevo,
+      motivo: m.motivo || '',
+      fecha: m.created_at
+    }));
+    exportToExcel(data, movementColumns, 'movimientos', 'Movimientos');
+  };
+
   const columns = [
     { key: 'id', header: 'ID' },
     { key: 'tipo', header: 'Tipo', render: (m: Movement) => getTipoBadge(m.tipo) },
@@ -96,6 +136,8 @@ export function MovimientosPage() {
             <p className="text-slate-500 dark:text-slate-400">Registro de entradas, salidas y ajustes</p>
           </div>
           <div className="flex gap-2">
+            <Button variant="outline" onClick={handleExportPDF}>📄 PDF</Button>
+            <Button variant="outline" onClick={handleExportExcel}>📊 Excel</Button>
             <Button variant="success" onClick={() => { setMovimientoTipo('entrada'); setShowModal(true); }}>+ Entrada</Button>
             <Button variant="danger" onClick={() => { setMovimientoTipo('salida'); setShowModal(true); }}>+ Salida</Button>
             <Button variant="warning" onClick={() => { setMovimientoTipo('ajuste'); setShowModal(true); }}>+ Ajuste</Button>

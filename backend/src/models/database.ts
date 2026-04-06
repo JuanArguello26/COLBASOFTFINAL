@@ -85,6 +85,19 @@ export async function initializeDatabase(): Promise<Database> {
       detalle TEXT,
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
+
+    CREATE TABLE IF NOT EXISTS suppliers (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      nit TEXT UNIQUE NOT NULL,
+      nombre TEXT NOT NULL,
+      contacto TEXT,
+      telefono TEXT,
+      email TEXT,
+      direccion TEXT,
+      ciudad TEXT DEFAULT 'Eje Cafetero',
+      activo INTEGER DEFAULT 1,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
   `);
 
   saveDatabase();

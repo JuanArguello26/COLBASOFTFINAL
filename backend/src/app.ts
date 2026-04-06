@@ -8,6 +8,7 @@ import dashboardRoutes from './routes/dashboard';
 import alertRoutes from './routes/alerts';
 import userRoutes from './routes/users';
 import warehouseRoutes from './routes/warehouse';
+import supplierRoutes from './routes/suppliers';
 import { LogRepository } from './repositories/LogRepository';
 
 const app = express();
@@ -32,6 +33,7 @@ async function startServer() {
   app.use('/api/alerts', alertRoutes);
   app.use('/api/users', userRoutes);
   app.use('/api/warehouses', warehouseRoutes);
+  app.use('/api/suppliers', supplierRoutes);
 
   app.get('/api/health', (req, res) => {
     res.json({ status: 'ok', timestamp: new Date().toISOString() });

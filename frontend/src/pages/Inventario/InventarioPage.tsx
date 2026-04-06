@@ -8,6 +8,7 @@ import { Table } from '../../components/common/Table';
 import { Modal } from '../../components/common/Modal';
 import { Badge } from '../../components/common/Badge';
 import { Layout } from '../../components/layout/Layout';
+import { exportToPDF, exportToExcel } from '../../utils/export';
 
 export function InventarioPage() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -96,6 +97,43 @@ export function InventarioPage() {
     setShowModal(true);
   };
 
+  const productColumns = [
+    { key: 'codigo', header: 'Código' },
+    { key: 'nombre', header: 'Producto' },
+    { key: 'categoria', header: 'Categoría' },
+    { key: 'stock_actual', header: 'Stock' },
+    { key: 'stock_minimo', header: 'Stock Mín' },
+    { key: 'precio_unitario', header: 'Precio' },
+    { key: 'proveedor', header: 'Proveedor' }
+  ];
+
+  const handleExportPDF = () => {
+    const data = products.map(p => ({
+      codigo: p.codigo,
+      nombre: p.nombre,
+      categoria: p.categoria,
+      stock_actual: `${p.stock_actual} ${p.unidad}`,
+      stock_minimo: `${p.stock_minimo} ${p.unidad}`,
+      precio_unitario: `$${p.precio_unitario.toLocaleString('es-CO')}`,
+      proveedor: p.proveedor || ''
+    }));
+    exportToPDF(data, productColumns, 'inventario', 'Inventario de Productos');
+  };
+
+  const handleExportExcel = () => {
+    const data = products.map(p => ({
+      codigo: p.codigo,
+      nombre: p.nombre,
+      categoria: p.categoria,
+      stock_actual: p.stock_actual,
+      unidad: p.unidad,
+      stock_minimo: p.stock_minimo,
+      precio_unitario: p.precio_unitario,
+      proveedor: p.proveedor || ''
+    }));
+    exportToExcel(data, productColumns, 'inventario', 'Inventario');
+  };
+
   const getStockBadge = (product: Product) => {
     if (product.stock_actual <= 0) return <Badge variant="danger">Agotado</Badge>;
     if (product.stock_actual <= product.stock_minimo * 0.5) return <Badge variant="danger">Crítico</Badge>;
@@ -134,7 +172,11 @@ export function InventarioPage() {
             <h1 className="text-2xl font-bold text-slate-800 dark:text-slate-100">Inventario</h1>
             <p className="text-slate-500 dark:text-slate-400">Gestión de productos</p>
           </div>
-          <Button onClick={() => { resetForm(); setShowModal(true); }}>+ Nuevo Producto</Button>
+          <div className="flex gap-2">
+            <Button variant="outline" onClick={handleExportPDF}>📄 PDF</Button>
+            <Button variant="outline" onClick={handleExportExcel}>📊 Excel</Button>
+            <Button onClick={() => { resetForm(); setShowModal(true); }}>+ Nuevo Producto</Button>
+          </div>
         </div>
 
         <Card className="mb-6">

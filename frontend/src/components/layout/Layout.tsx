@@ -8,6 +8,7 @@ const menuItems = [
   { to: '/inventario', icon: '📦', label: 'Inventario' },
   { to: '/movimientos', icon: '🔄', label: 'Movimientos' },
   { to: '/trazabilidad', icon: '🔍', label: 'Trazabilidad' },
+  { to: '/proveedores', icon: '🏭', label: 'Proveedores' },
   { to: '/usuarios', icon: '👥', label: 'Usuarios', adminOnly: true }
 ];
 
