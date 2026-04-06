@@ -77,7 +77,7 @@ export function MovimientosPage() {
     { key: 'tipo', header: 'Tipo', render: (m: Movement) => getTipoBadge(m.tipo) },
     { key: 'product_id', header: 'Producto', render: (m: Movement) => getProductName(m.product_id) },
     { key: 'cantidad', header: 'Cantidad', render: (m: Movement) => (
-      <span className={m.tipo === 'entrada' ? 'text-success-500' : m.tipo === 'salida' ? 'text-danger-500' : 'text-warning-500'}>
+      <span className={m.tipo === 'entrada' ? 'text-success-500 dark:text-success-400' : m.tipo === 'salida' ? 'text-danger-500 dark:text-danger-400' : 'text-warning-500 dark:text-warning-400'}>
         {m.tipo === 'entrada' ? '+' : m.tipo === 'salida' ? '-' : ''}{m.cantidad}
       </span>
     )},
@@ -92,8 +92,8 @@ export function MovimientosPage() {
       <div className="p-8">
         <div className="flex justify-between items-center mb-6">
           <div>
-            <h1 className="text-2xl font-bold text-slate-800">Movimientos</h1>
-            <p className="text-slate-500">Registro de entradas, salidas y ajustes</p>
+            <h1 className="text-2xl font-bold text-slate-800 dark:text-slate-100">Movimientos</h1>
+            <p className="text-slate-500 dark:text-slate-400">Registro de entradas, salidas y ajustes</p>
           </div>
           <div className="flex gap-2">
             <Button variant="success" onClick={() => { setMovimientoTipo('entrada'); setShowModal(true); }}>+ Entrada</Button>

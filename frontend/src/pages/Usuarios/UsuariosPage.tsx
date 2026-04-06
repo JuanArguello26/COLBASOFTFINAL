@@ -96,8 +96,8 @@ export function UsuariosPage() {
       <div className="p-8">
         <div className="flex justify-between items-center mb-6">
           <div>
-            <h1 className="text-2xl font-bold text-slate-800">Usuarios</h1>
-            <p className="text-slate-500">Gestión de usuarios del sistema</p>
+            <h1 className="text-2xl font-bold text-slate-800 dark:text-slate-100">Usuarios</h1>
+            <p className="text-slate-500 dark:text-slate-400">Gestión de usuarios del sistema</p>
           </div>
           <Button onClick={() => { resetForm(); setShowModal(true); }}>+ Nuevo Usuario</Button>
         </div>

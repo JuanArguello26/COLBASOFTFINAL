@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { productsAPI, movementsAPI } from '../../services/api';
 import { Product, Movement } from '../../types';
 import { Card } from '../../components/common/Card';
-import { Button } from '../../components/common/Button';
 import { Select } from '../../components/common/Input';
 import { Badge } from '../../components/common/Badge';
 import { Layout } from '../../components/layout/Layout';
@@ -57,8 +56,8 @@ export function TrazabilidadPage() {
     <Layout>
       <div className="p-8">
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-slate-800">Trazabilidad</h1>
-          <p className="text-slate-500">Historial completo de movimientos por producto</p>
+          <h1 className="text-2xl font-bold text-slate-800 dark:text-slate-100">Trazabilidad</h1>
+          <p className="text-slate-500 dark:text-slate-400">Historial completo de movimientos por producto</p>
         </div>
 
         <Card className="mb-6">
@@ -81,15 +80,15 @@ export function TrazabilidadPage() {
               <div className="flex items-center gap-4">
                 {products.filter(p => p.id === selectedProduct).map(p => (
                   <div key={p.id} className="flex-1">
-                    <p className="text-sm text-slate-500">Producto</p>
-                    <p className="font-semibold text-slate-800">{p.nombre}</p>
-                    <p className="text-sm text-slate-500">Código: {p.codigo}</p>
+                    <p className="text-sm text-slate-500 dark:text-slate-400">Producto</p>
+                    <p className="font-semibold text-slate-800 dark:text-slate-100">{p.nombre}</p>
+                    <p className="text-sm text-slate-500 dark:text-slate-400">Código: {p.codigo}</p>
                   </div>
                 ))}
                 {products.filter(p => p.id === selectedProduct).map(p => (
                   <div key={p.id} className="text-right">
-                    <p className="text-sm text-slate-500">Stock Actual</p>
-                    <p className="text-xl font-bold text-primary-600">{p.stock_actual} {p.unidad}</p>
+                    <p className="text-sm text-slate-500 dark:text-slate-400">Stock Actual</p>
+                    <p className="text-xl font-bold text-primary-600 dark:text-primary-400">{p.stock_actual} {p.unidad}</p>
                   </div>
                 ))}
               </div>
@@ -99,21 +98,21 @@ export function TrazabilidadPage() {
               {loading ? (
                 <div className="flex justify-center py-8"><div className="animate-spin rounded-full h-8 w-8 border-2 border-primary-600 border-t-transparent"></div></div>
               ) : movements.length === 0 ? (
-                <p className="text-center text-slate-500 py-8">No hay movimientos registrados</p>
+                <p className="text-center text-slate-500 dark:text-slate-400 py-8">No hay movimientos registrados</p>
               ) : (
                 <div className="space-y-3">
                   {movements.map(m => (
-                    <div key={m.id} className="flex items-center gap-4 p-4 bg-slate-50 rounded-lg">
+                    <div key={m.id} className="flex items-center gap-4 p-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
                       <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                        m.tipo === 'entrada' ? 'bg-success-100 text-success-500' :
-                        m.tipo === 'salida' ? 'bg-danger-100 text-danger-500' :
-                        'bg-warning-100 text-warning-500'
+                        m.tipo === 'entrada' ? 'bg-success-100 dark:bg-success-900/30 text-success-500 dark:text-success-400' :
+                        m.tipo === 'salida' ? 'bg-danger-100 dark:bg-danger-900/30 text-danger-500 dark:text-danger-400' :
+                        'bg-warning-100 dark:bg-warning-900/30 text-warning-500 dark:text-warning-400'
                       }`}>
                         {m.tipo === 'entrada' ? '↓' : m.tipo === 'salida' ? '↑' : '↔'}
                       </div>
                       <div className="flex-1">
                         <div className="flex items-center gap-2">
-                          <span className="font-medium text-slate-800 capitalize">{m.tipo}</span>
+                          <span className="font-medium text-slate-800 dark:text-slate-100 capitalize">{m.tipo}</span>
                           {m.tipo === 'entrada' ? (
                             <Badge variant="success">+{m.cantidad}</Badge>
                           ) : m.tipo === 'salida' ? (
@@ -122,14 +121,14 @@ export function TrazabilidadPage() {
                             <Badge variant="warning">{m.cantidad > 0 ? '+' : ''}{m.cantidad}</Badge>
                           )}
                         </div>
-                        <p className="text-sm text-slate-500">{m.motivo || 'Sin motivo'}</p>
-                        <p className="text-xs text-slate-400">
+                        <p className="text-sm text-slate-500 dark:text-slate-400">{m.motivo || 'Sin motivo'}</p>
+                        <p className="text-xs text-slate-400 dark:text-slate-500">
                           Stock: {m.stock_anterior} → {m.stock_nuevo}
                         </p>
                       </div>
                       <div className="text-right">
-                        <p className="text-sm text-slate-500">{formatDate(m.created_at)}</p>
-                        <p className="text-xs text-slate-400">ID: {m.id}</p>
+                        <p className="text-sm text-slate-500 dark:text-slate-400">{formatDate(m.created_at)}</p>
+                        <p className="text-xs text-slate-400 dark:text-slate-500">ID: {m.id}</p>
                       </div>
                     </div>
                   ))}

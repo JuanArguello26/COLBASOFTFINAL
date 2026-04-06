@@ -131,8 +131,8 @@ export function InventarioPage() {
       <div className="p-8">
         <div className="flex justify-between items-center mb-6">
           <div>
-            <h1 className="text-2xl font-bold text-slate-800">Inventario</h1>
-            <p className="text-slate-500">Gestión de productos</p>
+            <h1 className="text-2xl font-bold text-slate-800 dark:text-slate-100">Inventario</h1>
+            <p className="text-slate-500 dark:text-slate-400">Gestión de productos</p>
           </div>
           <Button onClick={() => { resetForm(); setShowModal(true); }}>+ Nuevo Producto</Button>
         </div>

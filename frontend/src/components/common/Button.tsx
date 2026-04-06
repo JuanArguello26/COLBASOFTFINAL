@@ -20,11 +20,11 @@ export function Button({
   
   const variants = {
     primary: 'bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-500',
-    secondary: 'bg-slate-600 text-white hover:bg-slate-700 focus:ring-slate-500',
+    secondary: 'bg-slate-600 dark:bg-slate-700 text-white hover:bg-slate-700 dark:hover:bg-slate-600 focus:ring-slate-500',
     success: 'bg-success-500 text-white hover:bg-success-600 focus:ring-success-500',
     danger: 'bg-danger-500 text-white hover:bg-danger-600 focus:ring-danger-500',
     warning: 'bg-warning-500 text-white hover:bg-warning-600 focus:ring-warning-500',
-    outline: 'border-2 border-primary-600 text-primary-600 hover:bg-primary-50 focus:ring-primary-500'
+    outline: 'border-2 border-primary-600 text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 focus:ring-primary-500'
   };
 
   const sizes = {

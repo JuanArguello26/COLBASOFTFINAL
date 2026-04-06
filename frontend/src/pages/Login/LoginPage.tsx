@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button } from '../components/common/Button';
-import { Input } from '../components/common/Input';
-import { useAuth } from '../context/AuthContext';
+import { Button } from '../../components/common/Button';
+import { Input } from '../../components/common/Input';
+import { useAuth } from '../../context/AuthContext';
+import { ThemeToggle } from '../../components/common/ThemeToggle';
 
 export function LoginPage() {
   const [email, setEmail] = useState('');
@@ -28,17 +29,20 @@ export function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-primary-900 to-slate-900 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-primary-900 to-slate-900 dark:from-black dark:via-slate-900 dark:to-black flex items-center justify-center p-4">
+      <div className="absolute top-4 right-4">
+        <ThemeToggle />
+      </div>
       <div className="w-full max-w-md">
-        <div className="bg-white rounded-2xl shadow-2xl p-8">
+        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl p-8">
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold text-primary-600">COLBASOFT</h1>
-            <p className="text-slate-500 mt-2">Sistema Logístico Textil</p>
+            <p className="text-slate-500 dark:text-slate-400 mt-2">Sistema Logístico Textil</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             {error && (
-              <div className="bg-danger-50 text-danger-500 px-4 py-3 rounded-lg text-sm">
+              <div className="bg-danger-50 dark:bg-danger-900/30 text-danger-500 dark:text-danger-400 px-4 py-3 rounded-lg text-sm">
                 {error}
               </div>
             )}
@@ -66,8 +70,8 @@ export function LoginPage() {
             </Button>
           </form>
 
-          <div className="mt-6 pt-6 border-t border-slate-200">
-            <p className="text-xs text-slate-500 text-center">
+          <div className="mt-6 pt-6 border-t border-slate-200 dark:border-slate-700">
+            <p className="text-xs text-slate-500 dark:text-slate-400 text-center">
               Credenciales de prueba:
               <br />
               admin@colbasoft.com / admin123
