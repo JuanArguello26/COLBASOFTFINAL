@@ -1,20 +1,21 @@
-import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
+import { LoadingScreen } from './components/common/LoadingScreen';
 import { LoginPage } from './pages/Login/LoginPage';
 import { DashboardPage } from './pages/Dashboard/DashboardPage';
 import { InventarioPage } from './pages/Inventario/InventarioPage';
 import { MovimientosPage } from './pages/Movimientos/MovimientosPage';
 import { TrazabilidadPage } from './pages/Trazabilidad/TrazabilidadPage';
 import { UsuariosPage } from './pages/Usuarios/UsuariosPage';
+import { useState } from 'react';
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-900">
+      <div className="min-h-screen flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary-600 border-t-transparent"></div>
       </div>
     );
@@ -43,11 +44,11 @@ function AppRoutes() {
 }
 
 export default function App() {
-  const theme = localStorage.getItem('theme') || 'light';
+  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    document.documentElement.classList.add(theme);
-  }, [theme]);
+  if (isLoading) {
+    return <LoadingScreen onComplete={() => setIsLoading(false)} />;
+  }
 
   return (
     <ThemeProvider>
